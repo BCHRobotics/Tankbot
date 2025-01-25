@@ -2,22 +2,24 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 
-import edu.wpi.first.wpilibj.Timer;
+// import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 public class Robot extends TimedRobot {
+
+private RobotContainer robotContainer;
 
 
  /** This method is called once when the robot starts up. */
 @Override
 public void robotInit() { 
-   
+  robotContainer = new RobotContainer();
 }
 
 /** This method is called periodically, regardless of the robot mode. */
 @Override
 public void robotPeriodic() { 
-   
+CommandScheduler.getInstance().run();
 }
 
 /** This method is called once when teleop mode (driver control) starts. */
@@ -53,7 +55,7 @@ public void disabledInit() {
 /** This method is called periodically during disabled mode. */
 @Override
 public void disabledPeriodic() { 
-   
+  robotContainer.getDrivetrain().brake(); 
 }
 
 }

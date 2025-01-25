@@ -31,10 +31,10 @@ public class Drivetrain extends SubsystemBase {
     // private final Timer timer;
     
     public Drivetrain() {
-       this.backLeftMotor = new SparkMax (10, MotorType.kBrushless);
+       this.backLeftMotor = new SparkMax (13, MotorType.kBrushless);
        this.frontLeftMotor = new SparkMax (11, MotorType.kBrushless);
-       this.backRightMotor = new SparkMax (12, MotorType.kBrushless);
-       this.frontRightMotor = new SparkMax (13, MotorType.kBrushless);
+       this.backRightMotor = new SparkMax (10, MotorType.kBrushless);
+       this.frontRightMotor = new SparkMax (12, MotorType.kBrushless);
 
        SparkMaxConfig frontLeftConfig = new SparkMaxConfig();
     frontLeftConfig
@@ -64,7 +64,7 @@ public class Drivetrain extends SubsystemBase {
     backRightConfig
             .smartCurrentLimit(50)
             .idleMode(IdleMode.kCoast);
-        backRightConfig.follow(this.frontRightMotor, true);
+        backRightConfig.follow(this.frontRightMotor, false);
     
     backRightMotor.configure(backRightConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
        
@@ -72,7 +72,7 @@ public class Drivetrain extends SubsystemBase {
 
     }
 
-    private double speedMultiplier = 1;
+    private double speedMultiplier = 0.50;
     public Command arcadeDriveCommand (DoubleSupplier forward, DoubleSupplier turn) {
         return run (() -> this.differentialDrive.arcadeDrive(forward.getAsDouble() * speedMultiplier, turn.getAsDouble() * speedMultiplier));//Multiplies the forward and turn speed by the speed multiplier
     }
