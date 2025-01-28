@@ -35,8 +35,8 @@ public class RobotContainer {
         private void configureDefaultCommands() {
 
             Command drivingCommand = m_drivetrain.arcadeDriveCommand(
-            () -> -this.driverController.getLeftY(), // Lambda (->) gets the current Y value
-            () -> this.driverController.getRightX() // Lambda (->) gets the current X value
+            () -> this.driverController.getRightX(), 
+            () -> this.driverController.getLeftY() 
         );
 
             // Set the default behavior of the drive subsystem to react to joystick inputs
