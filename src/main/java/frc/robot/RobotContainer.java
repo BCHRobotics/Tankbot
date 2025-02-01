@@ -1,8 +1,20 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import java.io.IOException;
+
+import org.json.simple.parser.ParseException;
+
+import com.pathplanner.lib.util.FileVersionException;
+
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drivetrain;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+
 
 /** 
  * The RobotContainer is where we set up everything for the robot: 
@@ -43,6 +55,9 @@ public class RobotContainer {
             m_drivetrain.setDefaultCommand(drivingCommand);
         }
         
+        public Command getAutonomousCommand() {
+            return autoChooser.getSelected();
+          }
 
 
     public Drivetrain getDrivetrain() {

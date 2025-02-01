@@ -16,4 +16,6 @@ package frc.robot;
         public static final class CONTROLLER {
             public static final int DRIVER_CONTROLLER_PORT = 0;
         }
+
+        public static final String AutoConstants = null;
     }
