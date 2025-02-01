@@ -1,13 +1,16 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-
+import edu.wpi.first.wpilibj2.command.Command;
 // import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 public class Robot extends TimedRobot {
 
 private RobotContainer robotContainer;
+
+private Command autoCommand;
+
 
 
  /** This method is called once when the robot starts up. */
@@ -37,7 +40,10 @@ public void teleopPeriodic() {
 /** This method is called once when autonomous mode starts. */
 @Override
 public void autonomousInit() {
-
+  autoCommand = robotContainer.getAutonomousCommand();
+  if (autoCommand != null) {
+      autoCommand.schedule();
+  }
 }
 
 /** This function is called periodically during autonomous. */
