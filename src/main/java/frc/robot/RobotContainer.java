@@ -55,9 +55,10 @@ public class RobotContainer {
             m_drivetrain.setDefaultCommand(drivingCommand);
         }
         
-        public Command getAutonomousCommand() {
-            return autoChooser.getSelected();
-          }
+    public Command getAutonomousCommand() throws FileVersionException, IOException, ParseException {
+        // using the string provided by the user to build and run an auto
+        return AutoUtils.BuildAutoFromCommands(AutoUtils.separateCommandString(SmartDashboard.getString("Example Path", "")), m_drivetrain);
+    }
 
 
     public Drivetrain getDrivetrain() {

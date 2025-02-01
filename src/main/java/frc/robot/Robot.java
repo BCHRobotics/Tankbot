@@ -68,7 +68,12 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    this.m_autonomousCommand = this.m_robotContainer.getAutonomousCommand();
+    try {
+      this.m_autonomousCommand = this.m_robotContainer.getAutonomousCommand();
+    } catch (FileVersionException | IOException | ParseException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
 
     // schedule the autonomous command (example)
     if (this.m_autonomousCommand != null) {
