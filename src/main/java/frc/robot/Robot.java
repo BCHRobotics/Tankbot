@@ -1,61 +1,115 @@
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.TimedRobot;
-
-// import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
+/**
+ * The VM is configured to automatically run this class, and to call the
+ * functions corresponding to
+ * each mode, as described in the TimedRobot documentation. If you change the
+ * name of this class or
+ * the package after creating this project, you must also update the
+ * build.gradle file in the
+ * project.
+ */
 public class Robot extends TimedRobot {
+  private Command autonomousCommand;
 
-private RobotContainer robotContainer;
+  private RobotContainer robotContainer;
 
+  /**
+   * This function is run when the robot is first started up and should be used
+   * for any
+   * initialization code.
+   */
+  @Override
+  public void robotInit() {
+    // Configure default commands and condition bindings on robot startup
+    this.robotContainer = new RobotContainer();
+    DataLogManager.start();
+  }
 
- /** This method is called once when the robot starts up. */
-@Override
-public void robotInit() { 
-  robotContainer = new RobotContainer();
-}
+  /**
+   * This function is called every robot packet, no matter the mode. Use this for
+   * items like
+   * diagnostics that you want ran during disabled, autonomous, teleoperated and
+   * test.
+   *
+   * <p>
+   * This runs after the mode specific periodic functions, but before LiveWindow
+   * and
+   * SmartDashboard integrated updating.
+   */
+  @Override
+  public void robotPeriodic() {
+    // Runs the Scheduler. This is responsible for polling buttons, adding
+    // newly-scheduled
+    // commands, running already-scheduled commands, removing finished or
+    // interrupted commands,
+    // and running subsystem periodic() methods. This must be called from the
+    // robot's periodic
+    // block in order for anything in the Command-based framework to work.
+    CommandScheduler.getInstance().run();
+  }
 
-/** This method is called periodically, regardless of the robot mode. */
-@Override
-public void robotPeriodic() { 
-CommandScheduler.getInstance().run();
-}
+  /** This function is called once each time the robot enters Disabled mode. */
+  @Override
+  public void disabledInit() {
+    this.robotContainer.EMERGENCY_STOP();
+  }
 
-/** This method is called once when teleop mode (driver control) starts. */
-@Override
-public void teleopInit() { 
-   
-}
+  @Override
+  public void disabledPeriodic() {
+    this.robotContainer.resetPosition();
+  }
 
-/** This method is called periodically during teleop mode. */
-@Override
-public void teleopPeriodic() { 
-   
-}
+  @Override
+  public void autonomousInit() {
+    this.autonomousCommand = this.robotContainer.getAutonomousCommand();
 
-/** This method is called once when autonomous mode starts. */
-@Override
-public void autonomousInit() {
+    // schedule the autonomous command (example)
+    if (this.autonomousCommand != null) {
+      this.autonomousCommand.schedule();
+    }
+  }
 
-}
-
-/** This function is called periodically during autonomous. */
-@Override
+  /** This function is called periodically during autonomous. */
+  @Override
   public void autonomousPeriodic() {
+  }
 
-}
+  @Override
+  public void teleopInit() {
+    this.robotContainer.resetHeading();
+    // This makes sure that the autonomous stops running when
+    // teleop starts running. If you want the autonomous to
+    // continue until interrupted by another command, remove
+    // this line or comment it out.
+    if (this.autonomousCommand != null) {
+      this.autonomousCommand.cancel();
+    }
+    this.robotContainer.CHASSIS_RESET().schedule();
+  }
 
-/** This method is called once each time the robot enters Disabled mode. */
-@Override
-public void disabledInit() { 
-   
-}
+  /** This function is called periodically during operator control. */
+  @Override
+  public void teleopPeriodic() {
+  }
 
-/** This method is called periodically during disabled mode. */
-@Override
-public void disabledPeriodic() { 
-  robotContainer.getDrivetrain().brake(); 
-}
+  @Override
+  public void testInit() {
+    // Cancels all running commands at the start of test mode.
+    CommandScheduler.getInstance().cancelAll();
+  }
 
+  /** This function is called periodically during test mode. */
+  @Override
+  public void testPeriodic() {
+  }
 }
