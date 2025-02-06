@@ -1,21 +1,21 @@
 package frc.robot;
 
-//import java.io.IOException;
+import java.io.IOException;
 
-//import org.json.simple.parser.ParseException;
+import org.json.simple.parser.ParseException;
 
-//import com.pathplanner.lib.util.FileVersionException;
+import com.pathplanner.lib.util.FileVersionException;
 
-//import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-//import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-//import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.path.PathPlannerPath;
 
