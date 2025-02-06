@@ -74,12 +74,9 @@ public class Drivetrain extends SubsystemBase {
     this.differentialDrive = new DifferentialDrive(frontLeftMotor, frontRightMotor);
     }
 
-    private double speedMultiplier = 0.6;
-    public Command tankDriveCommand(DoubleSupplier leftSpeed, DoubleSupplier rightSpeed) {
-        return run(() -> this.differentialDrive.tankDrive(
-            leftSpeed.getAsDouble() * speedMultiplier,  // Left side controlled by left joystick
-            rightSpeed.getAsDouble() * speedMultiplier  // Right side controlled by right joystick
-        ));
+    private double speedMultiplier = 0.5;
+    public Command arcadeDriveCommand (DoubleSupplier forward, DoubleSupplier turn) {
+        return run (() -> this.differentialDrive.arcadeDrive(forward.getAsDouble() * speedMultiplier, turn.getAsDouble() * speedMultiplier));//Multiplies the forward and turn speed by the speed multiplier
     }
     
     

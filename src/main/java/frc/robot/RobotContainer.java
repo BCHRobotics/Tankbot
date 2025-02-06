@@ -46,10 +46,10 @@ public class RobotContainer {
 
         private void configureDefaultCommands() {
 
-            Command drivingCommand = m_drivetrain.tankDriveCommand(
-                () -> -this.driverController.getLeftY(),  // Left joystick controls left side
-                () -> this.driverController.getRightY()  // Right joystick controls right side
-            );
+            Command drivingCommand = m_drivetrain.arcadeDriveCommand(
+                () -> this.driverController.getRightX(), 
+                () -> this.driverController.getLeftY()); 
+    
         
             // Set the default behavior of the drive subsystem to react to joystick inputs
             m_drivetrain.setDefaultCommand(drivingCommand);
