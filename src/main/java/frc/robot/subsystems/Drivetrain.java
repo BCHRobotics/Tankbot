@@ -10,6 +10,7 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -105,4 +106,7 @@ public class Drivetrain extends SubsystemBase {
     public Command driveForward () {
         return run (() -> this.differentialDrive.arcadeDrive( 0.25,  0 ));//sets the forward speed to 0.25 and the turn speed to 0
     }
+
+    // Configure AutoBuilder last
+     
 }

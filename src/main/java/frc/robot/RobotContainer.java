@@ -7,13 +7,17 @@ import org.json.simple.parser.ParseException;
 import com.pathplanner.lib.util.FileVersionException;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.path.PathPlannerPath;
 
 
 /** 
@@ -31,12 +35,31 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 public class RobotContainer {
     private final Drivetrain m_drivetrain = new Drivetrain();
     
+    private final SendableChooser <Command> autoChooser;
+
     private final CommandXboxController driverController = new CommandXboxController(Constants.CONTROLLER.DRIVER_CONTROLLER_PORT);
 
-    public RobotContainer() {
+    public Command getAutonomousCommand() {
+    try{
+        // Load the path you want to follow using its name in the GUI
+        PathPlannerPath path = PathPlannerPath.fromPathFile("Example Path");
+
+        // Create a path following command using AutoBuilder. This will also trigger event markers.
+        return AutoBuilder.followPath(path);
+    } catch (Exception e) {
+        DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
+        return Commands.none();
+        }
+    }
+    
+        public RobotContainer() {
 
         configureButtonBindings();
         configureDefaultCommands();
+
+        //building the autochooser for pathplanner
+        autoChooser = AutoBuilder.buildAutoChooser();
+        SmartDashboard.putData("Auto Chooser", autoChooser);
 
     }
         private void configureButtonBindings() {
@@ -55,10 +78,6 @@ public class RobotContainer {
             m_drivetrain.setDefaultCommand(drivingCommand);
         }
         
-    public Command getAutonomousCommand() throws FileVersionException, IOException, ParseException {
-        // using the string provided by the user to build and run an auto
-        return AutoUtils.BuildAutoFromCommands(AutoUtils.separateCommandString(SmartDashboard.getString("Example Path", "")), m_drivetrain);
-    }
 
 
     public Drivetrain getDrivetrain() {

@@ -59,6 +59,7 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
+    // this.robotContainer.EMERGENCY_STOP();
   }
 
   /** This function is called periodically during Disabled mode. */
@@ -68,18 +69,9 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    try {
-      this.m_autonomousCommand = this.m_robotContainer.getAutonomousCommand();
-    } catch (FileVersionException | IOException | ParseException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-
-    // schedule the autonomous command (example)
-    if (this.m_autonomousCommand != null) {
-      this.m_autonomousCommand.schedule();
-    }
+   
   }
+
 
   /** This function is called periodically during autonomous. */
   @Override
