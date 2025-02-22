@@ -9,6 +9,7 @@ import com.pathplanner.lib.util.FileVersionException;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Blinkin;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -30,6 +31,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class RobotContainer {
     private final Drivetrain m_drivetrain = new Drivetrain();
+    private final Blinkin m_Blinkin = new Blinkin();
     
     private final CommandXboxController driverController = new CommandXboxController(Constants.CONTROLLER.DRIVER_CONTROLLER_PORT);
 
@@ -64,5 +66,15 @@ public class RobotContainer {
     public Drivetrain getDrivetrain() {
         return m_drivetrain;
 
+    }{
+
+    if (this.driverController.getLeftY() < 0){
+        this.m_Blinkin.SetBlinkin(0.61);
+        }else{
+        this.m_Blinkin.SetBlinkin(0.99);
+        }
     }
+
+    
+    
 }
