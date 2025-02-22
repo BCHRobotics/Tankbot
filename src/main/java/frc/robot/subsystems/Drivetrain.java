@@ -36,7 +36,7 @@ public class Drivetrain extends SubsystemBase {
        this.backRightMotor = new SparkMax (10, MotorType.kBrushless);
        this.frontRightMotor = new SparkMax (12, MotorType.kBrushless);
 
-       this.frontRightMotor.setInverted(true);
+       this.frontRightMotor.setInverted(false);
        
 
        SparkMaxConfig frontLeftConfig = new SparkMaxConfig();
@@ -59,7 +59,7 @@ public class Drivetrain extends SubsystemBase {
     backLeftConfig
             .smartCurrentLimit(50)
             .idleMode(IdleMode.kCoast);
-        backLeftConfig.follow(this.frontLeftMotor, false);
+        backLeftConfig.follow(this.frontLeftMotor, true);
     
     backLeftMotor.configure(backLeftConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 

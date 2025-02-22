@@ -49,9 +49,8 @@ public class RobotContainer {
         private void configureDefaultCommands() {
 
             Command drivingCommand = m_drivetrain.arcadeDriveCommand(
-                () -> this.driverController.getRightX(), 
-                () -> this.driverController.getLeftY()); 
-    
+                () -> -this.driverController.getRightX(), 
+                () -> this.driverController.getLeftY()).andThen(()->m_BlbackwardLED(this.driverController.getLeftY()));
         
             // Set the default behavior of the drive subsystem to react to joystick inputs
             m_drivetrain.setDefaultCommand(drivingCommand);
@@ -68,13 +67,8 @@ public class RobotContainer {
 
     }{
 
-    if (this.driverController.getLeftY() < 0){
-        this.m_Blinkin.SetBlinkin(0.61);
-        }else{
-        this.m_Blinkin.SetBlinkin(0.99);
-        }
-    }
-
-    
-    
+    this.driverController.x()
+        .whileTrue (this.m_Blinkin.blinkinBetter(-0.35))
+        .onFalse (this.m_Blinkin.blinkinBetter(0.87));  
+}
 }
