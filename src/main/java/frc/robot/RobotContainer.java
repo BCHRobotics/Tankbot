@@ -1,6 +1,7 @@
 package frc.robot;
 
 import java.io.IOException;
+import java.util.function.DoubleSupplier;
 
 import org.json.simple.parser.ParseException;
 
@@ -33,7 +34,7 @@ public class RobotContainer {
     private final Drivetrain m_drivetrain = new Drivetrain();
     private final Blinkin m_Blinkin = new Blinkin();
     
-    private final CommandXboxController driverController = new CommandXboxController(Constants.CONTROLLER.DRIVER_CONTROLLER_PORT);
+    final CommandXboxController driverController = new CommandXboxController(Constants.CONTROLLER.DRIVER_CONTROLLER_PORT);
 
     public RobotContainer() {
 
@@ -50,7 +51,7 @@ public class RobotContainer {
 
             Command drivingCommand = m_drivetrain.arcadeDriveCommand(
                 () -> -this.driverController.getRightX(), 
-                () -> this.driverController.getLeftY()).andThen(()->m_BlbackwardLED(this.driverController.getLeftY()));
+                () -> this.driverController.getLeftY());
         
             // Set the default behavior of the drive subsystem to react to joystick inputs
             m_drivetrain.setDefaultCommand(drivingCommand);
@@ -65,10 +66,17 @@ public class RobotContainer {
     public Drivetrain getDrivetrain() {
         return m_drivetrain;
 
-    }{
+    }
+
+    public Blinkin getBlinkin(){
+        return m_Blinkin;
+    }
+    
+    {
 
     this.driverController.x()
         .whileTrue (this.m_Blinkin.blinkinBetter(-0.35))
         .onFalse (this.m_Blinkin.blinkinBetter(0.87));  
-}
+    }
+        
 }

@@ -26,13 +26,14 @@ public class Blinkin extends SubsystemBase{
     
     // trying to make command for backward movement, cleaning up periodic
 
-    public void backwardLED(double joystickReading){ // leftControllerYAxis is a value between -1 -> 1
+    public void backwardLED(DoubleSupplier joystickReading){
+        // leftControllerYAxis is a value between -1 -> 1
         
-        if (joystickReading <= 0){
+        if (joystickReading.getAsDouble() <= 0){
             blinkin.set(0.61);
         }
         else{
-            blinkin.set(0.9);
+            blinkin.set(0.99);
         }
     }
 
